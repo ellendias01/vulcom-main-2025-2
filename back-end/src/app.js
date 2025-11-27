@@ -28,6 +28,16 @@ const limiter = rateLimit({
   limit: 20               // Máximo de 20 requisições
 })
 
+/*
+Vulnerabilidade: API4:2023 – Consumo irrestrito de recursos
+Esta vulnerabilidade foi evitada no código ao implementar rate limiting:
+- Limitar para 20 requisições por minuto por IP
+- Prevenir ataques de negação de serviço (DDoS)
+- Controlar o consumo de recursos do servidor
+- Proteger contra ataques de força bruta
+*/
+
+
 app.use(limiter)
 app.use(logger('dev'))
 /*********** ROTAS DA API **************/

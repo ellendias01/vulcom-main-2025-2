@@ -12,6 +12,16 @@ const currentYear = new Date().getFullYear()
 // Data de abertura da loja (20/03/2020)
 const storeOpeningDate = new Date(2020, 2, 20) // Mês é 0-based (2 = março)
 
+/*
+Vulnerabilidade: API3:2023 – Falha de autenticação a nível de propriedade
+Esta vulnerabilidade foi evitada no código ao:
+- Implementar validação rigorosa com Zod schema validation
+- Validar e sanitizar todos os campos de entrada
+- Usar enum para valores pré-definidos (cores, estados)
+- Validar formatos específicos (CPF, placas, emails)
+- Definir limites numéricos e de datas apropriados
+*/
+
 const Car = z.object({
   brand: z.string()
     .trim()

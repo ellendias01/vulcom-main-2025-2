@@ -4,6 +4,16 @@ import bcrypt from 'bcrypt'
 
 const controller = {}     // Objeto vazio
 
+/*
+Vulnerabilidade: API2:2023 – Falha de autenticação
+Esta vulnerabilidade foi evitada no código ao:
+- Usar bcrypt para armazenar senhas com hash seguro (12 rounds)
+- Implementar comparação segura de senhas com bcrypt.compare()
+- Remover autenticação por senha fixa (código vulnerável comentado)
+- Validar credenciais de forma segura no endpoint de login
+- Usar tokens JWT com expiração e assinatura segura
+*/
+
 controller.create = async function(req, res) {
   try {
 
@@ -39,6 +49,16 @@ controller.retrieveAll = async function(req, res) {
     // Somente usuários administradores podem acessar este recurso
     // HTTP 403: Forbidden(
     if(! req?.authUser?.is_admin) return res.status(403).end()
+
+
+/*
+Vulnerabilidade: API5:2023 – Falha de autenticação a nível de função
+Esta vulnerabilidade foi evitada no código ao:
+- Verificar se o usuário autenticado é administrador (req.authUser.is_admin)
+- Implementar controle de acesso baseado em roles para operações CRUD
+- Permitir que usuários acessem apenas seus próprios dados (exceto administradores)
+- Validar permissões em todos os endpoints administrativos
+*/
 
     const result = await prisma.user.findMany(
       // Omite o campo "password" do resultado

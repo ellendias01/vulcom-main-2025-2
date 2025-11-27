@@ -5,6 +5,16 @@ import { ZodError } from 'zod'
 const controller = {}     // Objeto vazio
 
 
+/*
+Vulnerabilidade: API1:2023 – Falha de autenticação a nível de objeto
+Esta vulnerabilidade deveria ter sido evitada no código fazendo:
+- Verificação de propriedade antes de operações UPDATE/DELETE
+- Garantir que usuários só modifiquem seus próprios recursos
+- Implementar autorização baseada em propriedade além da autenticação geral
+- Validar se o usuário tem permissão para acessar/modificar o recurso específico
+*/
+
+
 controller.create = async function(req, res) {
   try {
     // ✅ CORREÇÃO: Verificar se authUser existe antes de acessar

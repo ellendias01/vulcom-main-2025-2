@@ -38,6 +38,16 @@ function getOptions(body = null, method = 'GET') {
   return options
 }
 
+/*
+Vulnerabilidade: API2:2023 – Falha de autenticação
+Esta vulnerabilidade deveria ter sido evitada no código fazendo:
+- Não armazenar tokens de autenticação no localStorage
+- Usar apenas cookies HTTP-only para tokens (já implementado no back-end)
+- Implementar proteção contra CSRF
+- Validar origem das requisições no servidor
+*/
+
+
 function getErrorDescription(response) {
   switch(response.status) {
     case 401:   // Unauthorized
